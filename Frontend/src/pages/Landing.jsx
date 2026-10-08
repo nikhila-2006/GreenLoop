@@ -1,6 +1,7 @@
 import { ArrowRight, Camera, Brain, MapPin, Truck } from "lucide-react";
 import Navbar from "../components/navbar";
 import StepsCard from '../components/StepsCard';
+import { Link } from "react-router-dom";
 function LandingPage() {
     return (
         <div className="min-h-screen bg-white text-slate-800">
@@ -22,10 +23,10 @@ function LandingPage() {
                 for convenient pickup.
                 </p>
                 <div className="flex flex-wrap gap-4 mt-8">
-                <button className="flex items-center gap-2 px-6 py-3.5 bg-green-700 text-white rounded-lg font-semibold hover:bg-green-800">
+                <Link to="/upload" className="flex items-center gap-2 px-6 py-3.5 bg-green-700 text-white rounded-lg font-semibold hover:bg-green-800">
                     Identify My Waste
                     <ArrowRight size={18} />
-                </button>
+                </Link>
                 <button className="px-6 py-3.5 border border-green-700 text-green-800 rounded-lg font-semibold hover:bg-green-50">
                     For Recyclers
                 </button>

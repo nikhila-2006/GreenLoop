@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 function Navbar(){
     return (
         <div>
@@ -13,18 +14,18 @@ function Navbar(){
                 </div>
 
                 <div className="hidden md:flex items-center gap-8 text-sm font-medium">
-                    <a href="#" className="hover:text-green-600">
+                    <Link to="/" className="hover:text-green-600">
                         Home
-                    </a>
-                    <a href="#how-it-works" className="hover:text-green-600">
+                    </Link>
+                    <Link to="/" className="hover:text-green-600">
                         How It Works
-                    </a>
-                    <a href="#" className="hover:text-green-600">
+                    </Link>
+                    <Link to="/" className="hover:text-green-600">
                         For Recyclers
-                    </a>
-                    <a href="#" className="hover:text-green-600">
+                    </Link>
+                    <Link to="/" className="hover:text-green-600">
                         About
-                    </a>
+                    </Link>
                     <button className="px-5 py-2.5 bg-green-800 text-white rounded-lg hover:bg-green-700">
                         Login / Sign Up
                     </button>
