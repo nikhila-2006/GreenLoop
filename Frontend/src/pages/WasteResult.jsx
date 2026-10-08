@@ -1,19 +1,13 @@
 import { Link } from "react-router-dom";
-import {ArrowLeft,Recycle,Package,CircleDot,Weight} from "lucide-react";
+import {ArrowLeft,Recycle,Package,CircleDot,Weight, IndianRupee} from "lucide-react";
 import RecyclerCard from "../components/recyclerCard";
 import Navbar from "../components/navbar";
 import DetailsCard from "../components/DetailsCard";
+import { useLocation } from "react-router-dom";
 function WasteResult() {
-    const waste = {
-        category: "E-Waste",
-        item: "Keyboard",
-        material: "Plastic + Metal",
-        weight: "0.8 – 1.2 kg",
-        detected: "1 Keyboard",
-        estimatedValue: "₹50 – ₹150",
-        recyclable: true,
-    };
-
+    const location=useLocation();
+    const waste = location.state;
+    console.log(waste);
     return (
         <div className="min-h-screen bg-white">
         {/* Navbar */}
@@ -37,8 +31,8 @@ function WasteResult() {
                     <div className="flex justify-center">
                         <div className="w-full max-w-sm h-64 bg-gray-100 rounded-xl overflow-hidden">
                             <img
-                            src="/hero.png"
-                            alt="Detected keyboard"
+                            src={`http://localhost:8080${waste.image.url}`}
+                            alt={waste.item}
                             className="w-full h-full object-cover"
                             />
                         </div>
@@ -46,7 +40,7 @@ function WasteResult() {
                 {/* Main Information */}
                 <div className="flex flex-col justify-center">
                     {/* Status */}
-                    <span className="w-fit bg-green-100 text-green-700 px-4 py-2 rounded-full text-sm font-semibold mb-5">
+                    <span className="w-fit bg-green-100 text-green-700 px-4 py-2 rounded-full text-sm font-semibold mb-3">
                         AI Analysis Complete
                     </span>
                     <h2 className="text-3xl font-bold text-gray-900">
@@ -56,18 +50,19 @@ function WasteResult() {
                         {waste.item}
                     </p>
                     {/* Recyclable */}
-                    <div className="flex items-center gap-2 w-fit bg-green-100 text-green-700 px-4 py-2 rounded-full mt-5">
+                    <div className="flex items-center gap-2 w-fit bg-green-100 text-green-700 px-4 py-2 rounded-full mt-3">
                         <Recycle size={18} />
                         <span className="font-semibold">
                         Recyclable
                         </span>
                     </div>
                     {/* Value */}
-                    <div className="mt-7">
-                        <p className="text-gray-500 text-sm">
+                    <div className="mt-4">
+                        <p className="text-gray-500 text-xl text-sm">
                         Estimated Value
                         </p>
-                        <p className="text-3xl font-bold text-green-600 mt-1">
+                        <p className="flex items-center text-3xl font-bold text-green-600 mt-1">
+                            <IndianRupee size={26}/>
                         {waste.estimatedValue}
                         </p>
                         <p className="text-sm text-gray-500">

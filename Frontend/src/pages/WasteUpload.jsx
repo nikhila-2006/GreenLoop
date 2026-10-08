@@ -1,4 +1,5 @@
 import { useState } from "react";
+import axios from 'axios';
 import {ArrowLeft,ArrowRight,Camera,ImagePlus,Upload,X,} from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/navbar";
@@ -17,10 +18,20 @@ function WasteUpload() {
         setImage(null);
         setPreview(null);
     };
-    const handleAnalyze = () => {
-        if (!image) return;
+    const handleAnalyze = async(file) => {
+        if (!file) return;
         // Backend / AWS integration will be added later
-        navigate("/result");
+        const formData = new FormData();
+        formData.append('image',file);
+        try{
+            const response=await axios.post("http://localhost:8080/api/waste/analyze",formData)
+            console.log(response.data);
+            navigate('/result',{
+                state:response.data.waste
+            });
+        }catch(err){
+            console.log(err.message);
+        }
     };
     return (
         <div className="min-h-screen bg-slate-50">
@@ -56,7 +67,7 @@ function WasteUpload() {
                 <p className="text-sm text-slate-500 mt-2">
                     Drag & drop or click to browse
                 </p>
-                <div className="flex items-center gap-2 mt-6 px-4 py-2.5 bg-green-600 text-white rounded-lg text-sm font-medium">
+                <div  className="flex items-center gap-2 mt-6 px-4 py-2.5 bg-green-600 text-white rounded-lg text-sm font-medium">
                     <Upload size={17} />
                     Choose Image
                 </div>
@@ -103,7 +114,7 @@ function WasteUpload() {
             )}
             {/* Analyze Button */}
             <button
-                onClick={handleAnalyze}
+                onClick={()=>handleAnalyze(image)}
                 disabled={!image}
                 className={`w-full mt-6 py-3.5 rounded-xl flex items-center justify-center gap-2 font-semibold transition ${
                 image
