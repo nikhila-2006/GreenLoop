@@ -1,13 +1,11 @@
-import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-
+import { useState } from 'react';
+import { Routes, Route ,Navigate} from "react-router-dom";
+import LandingPage from './pages/Landing';
 function App() {
   return (
-    <>
-      <div>hello</div>
-    </>
+    <Routes>
+      <Route path="/" element={<LandingPage/>}/>
+    </Routes>
   )
 }
 
