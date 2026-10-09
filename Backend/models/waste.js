@@ -36,4 +36,4 @@ const wasteSchema=new Schema({
     }
 })
 
-module.exports=mongoose.model("Waste",wasteSchema)
+module.exports=mongoose.models.Waste || mongoose.model("Waste",wasteSchema)

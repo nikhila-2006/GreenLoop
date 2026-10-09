@@ -1,5 +1,4 @@
-import { Link } from "react-router-dom";
-import {ArrowLeft,Recycle,Package,CircleDot,Weight, IndianRupee} from "lucide-react";
+import {Recycle,Package,CircleDot,Weight, IndianRupee, CircleCheck} from "lucide-react";
 import RecyclerCard from "../components/recyclerCard";
 import Navbar from "../components/navbar";
 import DetailsCard from "../components/DetailsCard";
@@ -31,7 +30,7 @@ function WasteResult() {
                     <div className="flex justify-center">
                         <div className="w-full max-w-sm h-64 bg-gray-100 rounded-xl overflow-hidden">
                             <img
-                            src={`http://localhost:8080${waste.image.url}`}
+                            src={waste.image.url}
                             alt={waste.item}
                             className="w-full h-full object-cover"
                             />
@@ -40,8 +39,8 @@ function WasteResult() {
                 {/* Main Information */}
                 <div className="flex flex-col justify-center">
                     {/* Status */}
-                    <span className="w-fit bg-green-100 text-green-700 px-4 py-2 rounded-full text-sm font-semibold mb-3">
-                        AI Analysis Complete
+                    <span className="flex items-center justify-center gap-2 w-fit bg-green-100 text-green-700 px-4 py-2 rounded-full text-sm font-semibold mb-3">
+                        <CircleCheck size={18}/>AI Analysis Complete
                     </span>
                     <h2 className="text-3xl font-bold text-gray-900">
                         {waste.category}
