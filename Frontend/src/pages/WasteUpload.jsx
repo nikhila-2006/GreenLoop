@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import axios from 'axios';
 import {ArrowRight,Camera,ImagePlus,Upload,X} from "lucide-react";
 import { useNavigate } from "react-router-dom";
@@ -6,13 +6,13 @@ import Navbar from "../components/navbar";
 import SupportedCard from "../components/SupportedCard";
 import { MdErrorOutline } from "react-icons/md";
 function WasteUpload() {
-    const userToken = localStorage.getItem("token");
     const navigate = useNavigate();
     const [image, setImage] = useState(null);
     const [preview, setPreview] = useState(null);
     const [weight, setWeight] = useState("");
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
+    
     const handleImageChange = (e) => {
         const file = e.target.files[0];
         if (!file) return;

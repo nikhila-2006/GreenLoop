@@ -34,7 +34,7 @@ export default function UserSignup({role}) {
                 payload.serviceAreas = form.serviceAreas.split(",").map((area) => area.trim()).filter(Boolean);
             }
             await axios.post(`http://localhost:8080/${role}/register`, payload);
-            navigate(`${role}/login`, {
+            navigate(`/${role}/login`, {
                 state: { message: "Account created! Please log in." },
             });
         } catch (err) {

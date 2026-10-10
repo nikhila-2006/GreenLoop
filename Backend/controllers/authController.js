@@ -45,7 +45,13 @@ module.exports.register = async (req, res) => {
             }
             userData.businessName = businessName.trim();
             userData.address = address;
-            userData.serviceAreas = serviceAreas || [];
+            if (Array.isArray(serviceAreas)) {
+                userData.servicesAreas = serviceAreas.map(area => area.trim()).filter(Boolean);
+            } else if (typeof serviceAreas === "string") {
+                userData.servicesAreas = serviceAreas.split(",").map(area => area.trim()).filter(Boolean);
+            } else {
+                userData.servicesAreas = [];
+            }
         }
         const account = await Model.create(userData);
         return res.status(201).json({
@@ -103,6 +109,7 @@ module.exports.login = async (req, res) => {
                 id: account._id,
                 name: account.name,
                 email: account.email,
+                address: account.address,
                 role,
             },
         });
@@ -112,4 +119,23 @@ module.exports.login = async (req, res) => {
             message: "Login failed",
     });}
 };
+
+module.exports.getCurrUser=async (req, res) => {
+    try{
+        const userId = req.user.id;
+        const user=await User.findById(userId);
+        if(!user){
+            return res.status(404).json({
+                message:"User doesnt exist",
+            });
+        }
+        res.status(200).json({
+            user:user
+        })
+    }catch(err){
+        res.status(500).json({
+            message:err.message        
+    })
+    }
+}
 

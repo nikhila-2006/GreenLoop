@@ -1,5 +1,5 @@
 import {MapPin,Recycle} from "lucide-react";
-const RecyclerCard = () => {
+const RecyclerCard = ({recycler}) => {
     return (
         <div className="flex items-center justify-between w-full p-4 bg-white border border-gray-100 rounded-xl shadow-sm mt-5">
         {/* Left side */}
@@ -11,10 +11,10 @@ const RecyclerCard = () => {
                 {/* Recycler details */}
                 <div>
                     <h3 className="font-semibold text-lg text-gray-800">
-                        Ravi Recycling
+                        {recycler.businessName}
                     </h3>
-                    <div className="flex items-center gap-3 text-sm text-gray-500">
-                        <span className="flex items-center"><MapPin size={16}/> 1.2 km</span>
+                    <div className="flex items-center gap-3 text-sm text-gray-500 mb-2">
+                        <span className="flex items-center gap-1"><MapPin size={16}/> {recycler.address}</span>
                     </div>
                 {/* Tags */}
             <   div className="flex gap-2 mt-2">

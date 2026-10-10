@@ -3,10 +3,48 @@ import RecyclerCard from "../components/recyclerCard";
 import Navbar from "../components/navbar";
 import DetailsCard from "../components/DetailsCard";
 import { useLocation } from "react-router-dom";
+import { useState,useEffect } from "react";
+import axios from "axios";
 function WasteResult() {
+    const [recyclers, setRecyclers] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState("");
     const location=useLocation();
     const waste = location.state;
+    const user = JSON.parse(localStorage.getItem("user") || "null");
     console.log(waste);
+    useEffect(() => {
+        const fetchRecyclers = async () => {
+            try {
+                const response = await axios.get("http://localhost:8080/recyclers",{
+                    params: {
+                        pickupAddress: user?.address,
+                    },
+                    headers: {Authorization: `Bearer ${localStorage.getItem("token")}`}
+                });
+                console.log(response.data);
+                setRecyclers(response.data.recyclers);
+            } catch (err) {
+                console.log(err.response?.data?.message);
+                setError("Unable to load recyclers. Please try again.");
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchRecyclers();
+    }, []);
+    if (loading) {
+    return (
+        <div className="min-h-screen bg-white">
+            <Navbar />
+            <div className="flex justify-center items-center py-20">
+                <p className="text-gray-500 animate-pulse">
+                    Loading recyclers...
+                </p>
+            </div>
+        </div>
+    );
+}
     return (
         <div className="min-h-screen bg-white">
         {/* Navbar */}
@@ -86,7 +124,8 @@ function WasteResult() {
                     Find a Nearby Recycler
                 </h2>
                 <p className="text-gray-500">Choose a recycler near you and request a pickup</p>
-                <RecyclerCard/>
+                {recyclers.length === 0 ? ( <p>No recyclers are available right now.</p>) : 
+                (recyclers.map((recycler)=>(<RecyclerCard key={recycler._id} recycler={recycler}/>)))}
             </div>
         </main>
         </div>
