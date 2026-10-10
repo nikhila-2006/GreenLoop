@@ -4,12 +4,15 @@ require("dotenv").config();
 const connectDB = require("./config/db");
 const app = express();
 const wasteRouter=require("./routes/wasteRoutes")
+const authRouter=require("./routes/authRoutes");
 const wasteAnalysisRoutes = require("./routes/wasteAnalysisRoute");
 app.use(cors());
 app.use(express.json());
+
+app.use("/",authRouter);
 app.use("/",wasteRouter);
-app.use("/uploads",express.static("uploads"));
 app.use("/", wasteAnalysisRoutes);
+
 app.get("/", (req, res) => {
     res.json({
         message: "GreenLoop backend is running",

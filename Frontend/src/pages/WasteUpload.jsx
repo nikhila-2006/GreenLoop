@@ -6,6 +6,7 @@ import Navbar from "../components/navbar";
 import SupportedCard from "../components/SupportedCard";
 import { MdErrorOutline } from "react-icons/md";
 function WasteUpload() {
+    const userToken = localStorage.getItem("token");
     const navigate = useNavigate();
     const [image, setImage] = useState(null);
     const [preview, setPreview] = useState(null);

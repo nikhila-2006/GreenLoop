@@ -1,5 +1,11 @@
 import { Link } from "react-router-dom";
+import ProfileMenu from "./profileMenu";
+import {handleRecyclerAction,} from "../utils/navigationHandler";
+import { useNavigate } from "react-router-dom";
 function Navbar(){
+    const navigate = useNavigate();
+    const token = localStorage.getItem("token");
+    const recyclerToken = localStorage.getItem("recyclerToken");
     return (
         <div>
             {/* Navbar */}
@@ -20,15 +26,15 @@ function Navbar(){
                     <Link to="/" className="hover:text-green-600">
                         How It Works
                     </Link>
-                    <Link to="/" className="hover:text-green-600">
+                    <button onClick={() => handleRecyclerAction(navigate)} className="hover:text-green-600">
                         For Recyclers
-                    </Link>
+                    </button>
                     <Link to="/" className="hover:text-green-600">
                         About
                     </Link>
-                    <button className="px-5 py-2.5 bg-green-800 text-white rounded-lg hover:bg-green-700">
+                    {(token || recyclerToken) ? <ProfileMenu role={recyclerToken ? "Recycler" : "User"}/> : <Link to="/user/login" className="px-5 py-2.5 bg-green-800 text-white rounded-lg hover:bg-green-700">
                         Login / Sign Up
-                    </button>
+                    </Link>}
                 </div>
             </nav>
         </div>
