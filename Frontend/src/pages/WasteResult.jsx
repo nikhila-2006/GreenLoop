@@ -52,7 +52,7 @@ function WasteResult() {
                     <div className="flex items-center gap-2 w-fit bg-green-100 text-green-700 px-4 py-2 rounded-full mt-3">
                         <Recycle size={18} />
                         <span className="font-semibold">
-                        Recyclable
+                            Recyclable
                         </span>
                     </div>
                     {/* Value */}
@@ -70,15 +70,13 @@ function WasteResult() {
                     </div>
                 </div>
                 {/* Details */}
-                <div className="bg-blue-50 rounded-2xl p-6 flex flex-col justify-center gap-6">
+                <div className="bg-blue-50 rounded-2xl p-6 flex flex-col justify-center gap-8">
                     {/* Category */}
                     <DetailsCard title="Category" result={waste.category} Icon={Package}/>
                     {/* Material */}
                     <DetailsCard title="Material" result={waste.material} Icon={Recycle}/>
                     {/* Weight */}
                     <DetailsCard title="Weight (est.)" result={waste.weight} Icon={Weight}/>
-                    {/* Items detected */}
-                    <DetailsCard title="Item(s) Detected" result={waste.detected} Icon={CircleDot}/>
                 </div>
             </div>
             </div>
