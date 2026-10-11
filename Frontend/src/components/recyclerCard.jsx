@@ -1,5 +1,43 @@
 import {MapPin,Recycle} from "lucide-react";
-const RecyclerCard = ({recycler}) => {
+import { useState } from "react";
+import axios from "axios";
+const RecyclerCard = ({recycler,waste,requestSent,onRequestSent}) => {
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState("");
+    const [success, setSuccess] = useState("");
+    const handlePickupRequest = async (recycler) => {
+        try {
+            setLoading(true);
+            setError("");
+            setSuccess("");
+            const user = JSON.parse(localStorage.getItem("user") || "null");
+            const token = localStorage.getItem("token");
+            if (!user || !token) {
+                setError("Please log in to request a pickup.");
+                return;
+            }
+            if (!user.address || !user.phone) {
+                setError("Please update your address and phone number.");
+                return;
+            }
+            if (!waste?._id || !recycler?._id) {
+                setError("Waste or recycler information is missing.");
+                return;
+            }
+            const response = await axios.post("http://localhost:8080/pickups",
+                {wasteId: waste._id, recyclerId: recycler._id, customerName: user.name, phone: user.phone, address: user.address, imageUrl: waste.image?.url,},
+                { headers: {Authorization: `Bearer ${token}`,  },}
+            );
+            console.log(response.data);
+            setSuccess(response.data.message);
+            onRequestSent();
+        } catch (err) {
+            console.log(err.response?.data)
+            setError(err.response?.data?.message || "Failed to create pickup request." );
+        } finally {
+            setLoading(false);
+        }
+    };
     return (
         <div className="flex items-center justify-between w-full p-4 bg-white border border-gray-100 rounded-xl shadow-sm mt-5">
         {/* Left side */}
@@ -17,22 +55,24 @@ const RecyclerCard = ({recycler}) => {
                         <span className="flex items-center gap-1"><MapPin size={16}/> {recycler.address}</span>
                     </div>
                 {/* Tags */}
-            <   div className="flex gap-2 mt-2">
-                    <span className="px-2 py-1 text-xs bg-gray-200 text-gray-600 rounded">
-                    E-waste
-                    </span>
-                    <span className="px-2 py-1 text-xs bg-gray-200 text-gray-600 rounded">
-                    Plastic
-                    </span>
-                    <span className="px-2 py-1 text-xs bg-gray-200 text-gray-600 rounded">
-                    Metal
-                    </span>
+                <div className="flex gap-2 mt-2">
+                        <span className="px-2 py-1 text-xs bg-gray-200 text-gray-600 rounded">
+                        E-waste
+                        </span>
+                        <span className="px-2 py-1 text-xs bg-gray-200 text-gray-600 rounded">
+                        Plastic
+                        </span>
+                        <span className="px-2 py-1 text-xs bg-gray-200 text-gray-600 rounded">
+                        Metal
+                        </span>
                 </div>
+                {error && (<p className="mt-2 text-sm text-red-600" role="alert">{error}</p>)}
+                {success && (<p className="mt-2 text-sm text-green-600" role="status">{success} </p>)}
             </div>
         </div>
         {/* Button */}
-        <button className="px-5 py-2 text-sm font-medium text-white bg-green-700 rounded-lg hover:bg-green-800">
-            Request Pickup
+        <button disabled={loading || !!success} onClick={()=>handlePickupRequest(recycler)} className="px-5 py-2 text-sm cursor-pointer font-medium text-white bg-green-700 rounded-lg hover:bg-green-800">
+            {loading? "Sending..." : requestSent ? "Request Sent" : "Request Pickup"}
         </button>
         </div>
     );

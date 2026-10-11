@@ -1,43 +1,49 @@
 import {  MapPin, Clock } from "lucide-react";
-function PickupCard({pickup}){
+function PickupCard({pickup,handleAcceptPickup}){
     return(
-        <div key={pickup.id} className="bg-white border rounded-xl p-4 shadow-sm">
+        <div className="bg-white border rounded-xl p-4 shadow-sm">
                 <div className="flex flex-col md:flex-row md:items-center gap-5">
                     {/* Image */}
                     <div className="w-full md:w-20 h-20 rounded-lg overflow-hidden bg-gray-100 shrink-0">
-                        <img src={pickup.image}
-                            alt={pickup.item}
+                        <img src={pickup.imageUrl}
+                            alt={pickup.waste.category}
                             className="w-full h-full object-cover"/>
                     </div>
                     {/* Waste Information */}
                 <div className="flex-1">
                         <h2 className="font-bold text-gray-900">
-                            {pickup.category}
+                            {pickup.waste.category}
                         </h2>
                         <p className="text-sm text-gray-600">
-                            {pickup.item}
+                            {pickup.waste.item}
                         </p>
                 <div className="flex flex-wrap items-center gap-3 mt-2 text-xs text-gray-500">
                     <span className="flex items-center gap-1">
                         <MapPin size={14} />
-                            {pickup.distance}
+                            {pickup.address}
                     </span>
-                    <span>•</span>
+                    <span>
                     <span className="flex items-center gap-1">
                         <Clock size={14} />
-                            {pickup.time}
-                    </span>
+                            {pickup.scheduledAt ? new Date(pickup.scheduledAt).toLocaleString("en-IN",{ day: "2-digit",month: "short", year: "numeric",}) : "Not scheduled yet"}
+                    </span></span>
                 </div>
                 <p className="text-xs text-gray-500 mt-2">
                     Requested by:{" "}
                     <span className="font-medium text-gray-700">
-                        {pickup.requestedBy}
+                        {pickup.customerName}
                     </span>
                 </p>
                 <p className="text-xs text-gray-500 mt-1">
-                    Estimated Value:{" "}
+                    Phone Number:{" "}
                     <span className="font-semibold text-green-600">
-                        {pickup.value}
+                        {pickup.phone}
+                    </span>
+                </p>
+                <p className="flex items-center text-xs text-gray-500 mt-1">
+                    Estimated Value:{" "}
+                    <span className="mx-1 font-semibold text-green-600">
+                        ₹{pickup.waste.estimatedValue}
                     </span>
                 </p>
             </div>
@@ -46,12 +52,12 @@ function PickupCard({pickup}){
                     <span className="text-xs bg-gray-100 text-gray-600 px-3 py-1 rounded-full text-center">
                         {pickup.pickupTime}
                     </span>
-                <button className="bg-green-600 hover:bg-green-700 text-white px-5 py-2.5 rounded-lg text-sm font-semibold">
-                    Accept Pickup
+                <button onClick={()=>handleAcceptPickup(pickup._id)} className="bg-green-600 hover:bg-green-700 text-white px-5 py-2.5 rounded-lg text-sm font-semibold">
+                    {pickup.status=="Accepted" ? "Accepted": "Accept Pickup"}
                 </button>
-                <button  className="text-green-700 text-sm font-medium hover:underline" >
+                {/* <button  className="text-green-700 text-sm font-medium hover:underline" >
                     View Details →
-                </button>
+                </button> */}
             </div>
         </div>
     </div>        

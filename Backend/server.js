@@ -7,6 +7,7 @@ const wasteRouter=require("./routes/wasteRoutes")
 const authRouter=require("./routes/authRoutes");
 const wasteAnalysisRoutes = require("./routes/wasteAnalysisRoute");
 const recyclerRoutes=require("./routes/recyclersRoutes")
+const pickupRoutes=require("./routes/pickupRoutes")
 app.use(cors());
 app.use(express.json());
 
@@ -14,6 +15,7 @@ app.use("/",authRouter);
 app.use("/",wasteRouter);
 app.use("/", wasteAnalysisRoutes);
 app.use("/", recyclerRoutes);
+app.use("/", pickupRoutes);
 app.get("/", (req, res) => {
     res.json({
         message: "GreenLoop backend is running",

@@ -1,4 +1,4 @@
-import { useState,useEffect } from "react";
+import { useState } from "react";
 import axios from 'axios';
 import {ArrowRight,Camera,ImagePlus,Upload,X} from "lucide-react";
 import { useNavigate } from "react-router-dom";

@@ -4,6 +4,7 @@ import { MdArrowDropDown } from "react-icons/md";
 import { FaRegUserCircle } from "react-icons/fa";
 export default function ProfileMenu({role}) {
     const user = JSON.parse(localStorage.getItem("user") || "null");
+    const recycler = JSON.parse(localStorage.getItem("recycler") || "null");
     const [open, setOpen] = useState(false);
     const navigate = useNavigate();
     const handleLogout = () => {
@@ -22,7 +23,7 @@ export default function ProfileMenu({role}) {
                 <div className="flex-1 items-center justify-center gap-2 ">
                     <div className="flex gap-2">
                         <span className="text-xl text-green-700"><FaRegUserCircle/></span>
-                        <p className="font-medium text-md">{user?.name}</p>
+                        <p className="font-medium text-md">{user ? user?.name : recycler?.name}</p>
                         <MdArrowDropDown className="text-xl"/>
                     </div>
                 </div>

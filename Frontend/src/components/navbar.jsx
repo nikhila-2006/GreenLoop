@@ -12,7 +12,7 @@ function Navbar(){
             <nav className="flex items-center justify-between px-8 py-5 border-b">
                 <div className="flex items-center gap-2">
                 <div className="w-10 h-10 rounded-full bg-green-600 flex items-center justify-center">
-                    <span className="text-white text-xl"><img src="./logo.png" alt="logo" /></span>
+                    <span className="text-white text-xl"><img src="../logo.png" alt="logo" /></span>
                 </div>
                 <span className="text-2xl font-bold text-green-1000">
                     Green<span className="text-2xl font-bold text-green-600">Loop</span>

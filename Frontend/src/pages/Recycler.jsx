@@ -1,42 +1,68 @@
 import { Truck, MapPin, Clock, IndianRupee } from "lucide-react";
 import Navbar from "../components/navbar";
 import PickupCard from "../components/PickupCard";
+import {useState,useEffect} from 'react'
+import axios from 'axios'
 function Recycler() {
-    const pickups = [
-    {
-        id: 1,
-        category: "E-Waste",
-        item: "Keyboard",
-        image: "/keyboard.jpg",
-        distance: "1.2 km",
-        time: "15 mins",
-        requestedBy: "Rahul Sharma",
-        value: "₹50 – ₹150",
-        pickupTime: "Today, 10:30 AM", },
-    {
-        id: 2,
-        category: "Plastic",
-        item: "PET Bottles",
-        image: "/plastic.jpg",
-        distance: "2.5 km",
-        time: "25 mins",
-        requestedBy: "Priya Singh",
-        value: "₹10 – ₹20",
-        pickupTime: "Today, 11:15 AM",
-        },
-        {
-        id: 3,
-        category: "Paper",
-        item: "Cardboard Boxes",
-        image: "/cardboard.jpg",
-        distance: "3.8 km",
-        time: "35 mins",
-        requestedBy: "Amit Verma",
-        value: "₹15 – ₹30",
-        pickupTime: "Today, 12:00 PM",
-        },
-    ];
-
+    const [pickups, setPickups] = useState([]);
+    const [pendingPickups, setPendingPickups] = useState(null);
+    const [estimatedEarnings, setEstimatedEarnings] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState("");
+    const handleAcceptPickup = async (pickupId) => {
+        try {
+            const token = localStorage.getItem("recyclerToken");
+            const response = await axios.patch(`http://localhost:8080/${pickupId}/accept`,{},
+                {headers: { Authorization: `Bearer ${token}`,}, }
+            );
+            setPickups((prev) =>
+                prev.map((pickup) =>
+                    pickup._id === pickupId
+                        ? response.data.pickup
+                        : pickup
+                )
+            );
+        } catch (error) {
+            console.error(error);
+            alert(
+                error.response?.data?.message ||
+                "Failed to accept pickup."
+            );
+        }
+    };
+    useEffect(() => {
+        const fetchPickups = async () => {
+            try {
+                const token = localStorage.getItem("recyclerToken");
+                const response = await axios.get( "http://localhost:8080/pickups", {
+                        headers: { Authorization: `Bearer ${token}`,},
+                    }
+                );
+                const fetchedPickups = response.data.pickups || [];
+                setPickups(fetchedPickups);
+                setPendingPickups(fetchedPickups.filter((pickup) => pickup.status === "Pending").length)
+                setEstimatedEarnings(fetchedPickups.reduce(
+                    (total, pickup) =>
+                        total + (Number(pickup.waste?.estimatedValue) || 0),
+                    0
+                ))
+            } catch (err) {
+                console.log(err.message)
+                setError(err.response?.data?.message || "Failed to fetch pickups.");
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchPickups();
+    }, []);
+    if (loading || error) return (
+        <div className="min-h-screen bg-white">
+            <Navbar />
+            <div className="flex justify-center items-center py-20">
+                <p className="text-gray-500 animate-pulse"> {error ? error : "Loading Pickups..."}</p>
+            </div>
+        </div>
+    );
     return (
         <div className="min-h-screen bg-gray-50">
             <Navbar/>
@@ -63,7 +89,7 @@ function Recycler() {
             {/* Pickup List */}
             <div className="space-y-4">
             {pickups.map((pickup) => (
-                <PickupCard pickup={pickup}/>
+                <PickupCard key={pickup._id} pickup={pickup} handleAcceptPickup={handleAcceptPickup}/>
             ))}
             </div>
             {/* Statistics */}
@@ -79,7 +105,7 @@ function Recycler() {
                     Total Pickups Today
                     </p>
                     <p className="text-xl font-bold text-gray-900">
-                    3
+                    {pickups.length}
                     </p>
                 </div>
                 </div>
@@ -95,7 +121,7 @@ function Recycler() {
                     Estimated Earnings
                     </p>
                     <p className="text-xl font-bold text-gray-900">
-                    ₹85 – ₹180
+                    ₹{estimatedEarnings}
                     </p>
                 </div>
                 </div>
@@ -108,10 +134,10 @@ function Recycler() {
                 </div>
                 <div>
                     <p className="text-xs text-gray-500">
-                    Distance (approx.)
+                    Pending Pickups
                     </p>
                     <p className="text-xl font-bold text-gray-900">
-                    8.5 km
+                    {pendingPickups}
                     </p>
                 </div>
                 </div>

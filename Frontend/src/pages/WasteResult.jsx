@@ -1,4 +1,4 @@
-import {Recycle,Package,CircleDot,Weight, IndianRupee, CircleCheck} from "lucide-react";
+import {Recycle,Package,Weight, IndianRupee, CircleCheck} from "lucide-react";
 import RecyclerCard from "../components/recyclerCard";
 import Navbar from "../components/navbar";
 import DetailsCard from "../components/DetailsCard";
@@ -7,6 +7,7 @@ import { useState,useEffect } from "react";
 import axios from "axios";
 function WasteResult() {
     const [recyclers, setRecyclers] = useState([]);
+    const [requestSent, setRequestSent] = useState(false);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
     const location=useLocation();
@@ -33,8 +34,7 @@ function WasteResult() {
         };
         fetchRecyclers();
     }, []);
-    if (loading) {
-    return (
+    if (loading) {return (
         <div className="min-h-screen bg-white">
             <Navbar />
             <div className="flex justify-center items-center py-20">
@@ -49,7 +49,12 @@ function WasteResult() {
         <div className="min-h-screen bg-white">
         {/* Navbar */}
         <Navbar/>
-
+        {error && ( <div role="alert" aria-live="polite" className="mt-4 flex-col items-start gap-3 rounded-xl border border-red-200 bg-red-50 p-4 text-red-800 shadow-sm" >
+            <div className="flex items-center gap-2">
+                <MdErrorOutline className="text-3xl"/>
+                <p className="font-semibold">{error}</p>
+                </div>
+            </div>)}
         {/* Result */}
         <main className="max-w-7xl mx-auto px-6 py-10">
             {/* Heading */}
@@ -125,7 +130,7 @@ function WasteResult() {
                 </h2>
                 <p className="text-gray-500">Choose a recycler near you and request a pickup</p>
                 {recyclers.length === 0 ? ( <p>No recyclers are available right now.</p>) : 
-                (recyclers.map((recycler)=>(<RecyclerCard key={recycler._id} recycler={recycler}/>)))}
+                (recyclers.map((recycler)=>(<RecyclerCard key={recycler._id} waste={waste} recycler={recycler} requestSent={requestSent} onRequestSent={() => setRequestSent(true)}/>)))}
             </div>
         </main>
         </div>

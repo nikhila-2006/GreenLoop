@@ -110,6 +110,7 @@ module.exports.login = async (req, res) => {
                 name: account.name,
                 email: account.email,
                 address: account.address,
+                phone:account.phone,
                 role,
             },
         });

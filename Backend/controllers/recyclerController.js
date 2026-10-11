@@ -2,6 +2,12 @@ const Recycler = require("../models/recycler");
 module.exports.allRecyclers=async (req, res) => {
     try {
         const {pickupAddress}=req.query
+        if (!pickupAddress || typeof pickupAddress !== "string") {
+            return res.status(400).json({
+                success: false,
+                message: "Pickup address is required.",
+            });
+        }
         console.log(pickupAddress);
         const parts = pickupAddress.split(/[,\s]+/).map(part => part.trim()).filter(part => part.length >= 3);;
         const recyclers = await Recycler.find({
