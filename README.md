@@ -67,19 +67,26 @@ The platform aims to make recycling more convenient, transparent, and accessible
 - AWS deployment for application accessibility.
 - Environment-based configuration for deployment-specific settings.
 
+## 📸 Screenshots
+
 ### 🏡 Home Page
+[![GreenLoop Home Page](https://github.com/nikhila-2006/GreenLoop/blob/main/screenshots/home.png)
 
-![GreenLoop Home Page](screenshots/home.png)
+### 📤 Waste Upload Page
+[![GreenLoop Waste Upload Page](https://github.com/nikhila-2006/GreenLoop/blob/main/screenshots/waste-upload.png)
 
-### 🔍 AI Waste Analysis
+### 🔍 AI Waste Analysis Results
+[![GreenLoop Waste Analysis Results](https://github.com/nikhila-2006/GreenLoop/blob/main/screenshots/waste-results.png)
 
-![GreenLoop Waste Analysis](screenshots/waste-analysis.png)
+### 📊 User Dashboard
+[![GreenLoop User Dashboard](https://github.com/nikhila-2006/GreenLoop/blob/main/screenshots/user-dashboard.png)
 
-### 📊 Dashboard & Pickup Management
+### ♻️ Recycler Dashboard
+[![GreenLoop Recycler Dashboard](https://github.com/nikhila-2006/GreenLoop/blob/main/screenshots/recycler-dashboard.png)
 
-![GreenLoop Dashboard](screenshots/user-dashboard.png)
+### 🚚 Pickup Management Page
+[![GreenLoop Pickup Management](https://github.com/nikhila-2006/GreenLoop/blob/main/screenshots/pickup-management.png)
 
-![GreenLoop Recycler Dashboard](screenshots/recycler-dashboard.png)
 
 ## 🛠️ Technology Stack
 
@@ -97,6 +104,7 @@ The following technologies describe the project's current implementation. Adjust
 - **Express.js** — REST API framework
 - **MongoDB** — Database for application data, if configured
 - **JWT** — Token-based authentication, if configured
+- **Amazon S3** — Cloud object storage for uploaded waste images.
 
 ### Artificial Intelligence
 - **Google Gemini API** — AI-powered waste image analysis
