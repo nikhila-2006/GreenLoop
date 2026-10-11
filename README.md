@@ -6,13 +6,9 @@ GreenLoop is an AI-powered waste management and recycling platform designed to m
 
 By combining artificial intelligence with a user-friendly web experience, GreenLoop encourages responsible waste disposal and helps create a more sustainable, circular economy.
 
-<p align="center">
-  <a href="YOUR_DEPLOYED_PROJECT_URL">
-    <img src="https://img.shields.io/badge/Live%20Demo-Visit%20GreenLoop-16a34a?style=for-the-badge&logo=googlechrome&logoColor=white" alt="Live Demo" />
-  </a>
-  <img src="https://img.shields.io/badge/AI-Powered-7c3aed?style=for-the-badge" alt="AI Powered" />
-  <img src="https://img.shields.io/badge/Cloud-AWS-orange?style=for-the-badge&logo=amazonaws&logoColor=white" alt="AWS" />
-</p>
+🌐 Live Demo: https://main.d2leri3ub6jz1a.amplifyapp.com
+
+📂 Repository: https://github.com/nikhila-2006/GreenLoop.git
 
 ## 🌍 About the Project
 
