@@ -1,6 +1,6 @@
+require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
-require("dotenv").config();
 const connectDB = require("./config/db");
 const app = express();
 const wasteRouter=require("./routes/wasteRoutes")
@@ -11,6 +11,11 @@ const pickupRoutes=require("./routes/pickupRoutes")
 app.use(cors());
 app.use(express.json());
 
+app.get("/health", (req, res) => {
+    res.status(200).json({
+        status: "ok",
+    });
+});
 app.use("/",authRouter);
 app.use("/",wasteRouter);
 app.use("/", wasteAnalysisRoutes);
