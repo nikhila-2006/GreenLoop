@@ -1,4 +1,4 @@
-import { Truck, MapPin, Clock, IndianRupee } from "lucide-react";
+import { Truck, Clock, IndianRupee } from "lucide-react";
 import Navbar from "../components/navbar";
 import PickupCard from "../components/PickupCard";
 import {useState,useEffect} from 'react'
@@ -23,7 +23,6 @@ function Recycler() {
                 )
             );
         } catch (error) {
-            console.error(error);
             alert(
                 error.response?.data?.message ||
                 "Failed to accept pickup."
@@ -47,7 +46,6 @@ function Recycler() {
                     0
                 ))
             } catch (err) {
-                console.log(err.message)
                 setError(err.response?.data?.message || "Failed to fetch pickups.");
             } finally {
                 setLoading(false);
@@ -126,11 +124,11 @@ function Recycler() {
                 </div>
                 </div>
             </div>
-            {/* Distance */}
+            {/* Pending pickups */}
             <div className="bg-purple-50 border border-purple-100 rounded-xl p-5">
                 <div className="flex items-center gap-3">
                 <div className="bg-purple-100 p-3 rounded-full">
-                    <MapPin className="text-purple-600" size={20} />
+                    <Clock className="text-purple-600" size={20} />
                 </div>
                 <div>
                     <p className="text-xs text-gray-500">

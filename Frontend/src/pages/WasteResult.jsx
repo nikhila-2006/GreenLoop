@@ -13,7 +13,6 @@ function WasteResult() {
     const location=useLocation();
     const waste = location.state;
     const user = JSON.parse(localStorage.getItem("user") || "null");
-    console.log(waste);
     useEffect(() => {
         const fetchRecyclers = async () => {
             try {
@@ -23,10 +22,8 @@ function WasteResult() {
                     },
                     headers: {Authorization: `Bearer ${localStorage.getItem("token")}`}
                 });
-                console.log(response.data);
                 setRecyclers(response.data.recyclers);
             } catch (err) {
-                console.log(err.response?.data?.message);
                 setError("Unable to load recyclers. Please try again.");
             } finally {
                 setLoading(false);

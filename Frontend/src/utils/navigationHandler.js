@@ -10,7 +10,7 @@ export function handleUserAction(navigate) {
 export function handleRecyclerAction(navigate) {
     const recyclerToken = localStorage.getItem("recyclerToken");
     if (recyclerToken) {
-        navigate("/pickup");
+        navigate("/pickups");
         return;
     }
     localStorage.removeItem("token");

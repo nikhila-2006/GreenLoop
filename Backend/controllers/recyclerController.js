@@ -8,7 +8,6 @@ module.exports.allRecyclers=async (req, res) => {
                 message: "Pickup address is required.",
             });
         }
-        console.log(pickupAddress);
         const parts = pickupAddress.split(/[,\s]+/).map(part => part.trim()).filter(part => part.length >= 3);;
         const recyclers = await Recycler.find({
             $or: parts.flatMap(part => [{

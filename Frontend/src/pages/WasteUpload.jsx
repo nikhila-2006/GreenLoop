@@ -31,11 +31,9 @@ function WasteUpload() {
         formData.append("weight", weight);
         try{
             const response=await axios.post("http://localhost:8080/api/waste/analyze",formData)
-            console.log(response.data);
             const waste=response.data.waste;
             const imageUrl = waste.image.url;
             const secResponse=await axios.post("http://localhost:8080/api/waste-analysis/analyze",{wasteId:waste._id,weight})
-            console.log(secResponse.data);
             setLoading(false);
             navigate('/result',{
                 state:{
@@ -47,7 +45,6 @@ function WasteUpload() {
                 }
             }); 
         }catch(err){
-            console.error("GreenLoop analysis failed:", err);
             const code = err.response?.data?.code;
             if (code === "AI_QUOTA_EXCEEDED") {
                 setError( "AI analysis is temporarily unavailable because the usage limit has been reached. Please try again later.");

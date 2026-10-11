@@ -4,7 +4,6 @@ import axios from "axios";
 import { Recycle } from "lucide-react";
 export default function UserSignup({role}) {
     const navigate = useNavigate();
-    console.log(role);
     const inputClass ="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none focus focus focus";
     const [form, setForm] = useState({
         name: "",

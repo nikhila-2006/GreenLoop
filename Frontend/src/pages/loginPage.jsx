@@ -38,7 +38,7 @@ export default function UserLogin({role}) {
                 if (user) {
                     localStorage.setItem("recycler", JSON.stringify(user));
                 }
-                navigate("/pickup", { replace: true });
+                navigate("/pickups", { replace: true });
             }
         } catch (err) {
             setError(

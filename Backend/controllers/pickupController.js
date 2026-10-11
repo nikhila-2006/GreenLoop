@@ -97,7 +97,6 @@ module.exports.getRecyclerPickups = async (req, res) => {
 module.exports.acceptPickup = async (req, res) => {
     try {
         const { pickupId } = req.params;
-         console.log(pickupId);
         const recyclerId = req.user.id;
         const pickup = await Pickup.findOne({ _id: pickupId, recycler: recyclerId,});
         if (!pickup) {

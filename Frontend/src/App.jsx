@@ -24,7 +24,7 @@ function App() {
           <Route path="/result" element={<WasteResult/>}/>
         </Route>
         <Route element={<ProtectedRoute role="recycler"/>}>
-            <Route path="/pickup" element={<Recyler/>}/>
+            <Route path="/pickups" element={<Recyler/>}/>
         </Route>
     </Routes>
   )

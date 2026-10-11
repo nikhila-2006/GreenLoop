@@ -28,11 +28,9 @@ const RecyclerCard = ({recycler,waste,requestSent,onRequestSent}) => {
                 {wasteId: waste._id, recyclerId: recycler._id, customerName: user.name, phone: user.phone, address: user.address, imageUrl: waste.image?.url,},
                 { headers: {Authorization: `Bearer ${token}`,  },}
             );
-            console.log(response.data);
             setSuccess(response.data.message);
             onRequestSent();
         } catch (err) {
-            console.log(err.response?.data)
             setError(err.response?.data?.message || "Failed to create pickup request." );
         } finally {
             setLoading(false);
@@ -51,20 +49,20 @@ const RecyclerCard = ({recycler,waste,requestSent,onRequestSent}) => {
                     <h3 className="font-semibold text-lg text-gray-800">
                         {recycler.businessName}
                     </h3>
-                    <div className="flex items-center gap-3 text-sm text-gray-500 mb-2">
-                        <span className="flex items-center gap-1"><MapPin size={16}/> {recycler.address}</span>
+                    <div className="flex items-center gap-1 text-sm text-gray-500 mb-2 mt-1">
+                        <span>Business Address :</span>
+                        <span className="flex items-center gap-1"><MapPin size={12}/> {recycler.address}</span>
                     </div>
                 {/* Tags */}
-                <div className="flex gap-2 mt-2">
-                        <span className="px-2 py-1 text-xs bg-gray-200 text-gray-600 rounded">
-                        E-waste
-                        </span>
-                        <span className="px-2 py-1 text-xs bg-gray-200 text-gray-600 rounded">
-                        Plastic
-                        </span>
-                        <span className="px-2 py-1 text-xs bg-gray-200 text-gray-600 rounded">
-                        Metal
-                        </span>
+                <div className="flex flex-wrap gap-2 mt-2">
+                    <span className="text-sm text-gray-500">Service Areas :</span>
+                    {recycler.servicesAreas?.length > 0 ? ( recycler.servicesAreas.map((area, index) => (
+                        <span key={index} className="px-2 py-1 text-xs bg-gray-200 text-gray-600 rounded" >
+                            {area}
+                        </span>))) : (
+                        <p className="px-2 py-1 text-xs bg-gray-200 text-gray-600 rounded">
+                            {recycler.address}
+                        </p>)}
                 </div>
                 {error && (<p className="mt-2 text-sm text-red-600" role="alert">{error}</p>)}
                 {success && (<p className="mt-2 text-sm text-green-600" role="status">{success} </p>)}
