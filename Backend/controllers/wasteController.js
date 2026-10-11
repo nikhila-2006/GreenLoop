@@ -2,7 +2,7 @@ const { PutObjectCommand, DeleteObjectCommand } = require("@aws-sdk/client-s3");
 const { randomUUID } = require("crypto");
 const path = require("path");
 const s3 = require("../config/s3");
-const Waste = require("../models/Waste");
+const Waste = require("../models/waste");
 const { GetObjectCommand } = require("@aws-sdk/client-s3");
 const { getSignedUrl } = require("@aws-sdk/s3-request-presigner");
 module.exports.analyzeWaste = async (req, res) => {

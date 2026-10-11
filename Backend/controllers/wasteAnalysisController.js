@@ -3,7 +3,7 @@ const { GetObjectCommand } = require("@aws-sdk/client-s3");
 const s3 = require("../config/s3");
 const path = require("path");
 const mongoose = require("mongoose");
-const Waste = require("../models/Waste");
+const Waste = require("../models/waste");
 const ai = new GoogleGenAI({
     apiKey: process.env.GEMINI_API_KEY,
 });
