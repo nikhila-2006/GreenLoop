@@ -3,6 +3,7 @@ import Navbar from "../components/navbar";
 import PickupCard from "../components/PickupCard";
 import {useState,useEffect} from 'react'
 import axios from 'axios'
+import API_URL from "../api";
 function Recycler() {
     const [pickups, setPickups] = useState([]);
     const [pendingPickups, setPendingPickups] = useState(null);
@@ -12,7 +13,7 @@ function Recycler() {
     const handleAcceptPickup = async (pickupId) => {
         try {
             const token = localStorage.getItem("recyclerToken");
-            const response = await axios.patch(`http://localhost:8080/${pickupId}/accept`,{},
+            const response = await axios.patch(`${API_URL}/${pickupId}/accept`,{},
                 {headers: { Authorization: `Bearer ${token}`,}, }
             );
             setPickups((prev) =>
@@ -33,7 +34,7 @@ function Recycler() {
         const fetchPickups = async () => {
             try {
                 const token = localStorage.getItem("recyclerToken");
-                const response = await axios.get( "http://localhost:8080/pickups", {
+                const response = await axios.get( `${API_URL}/pickups`, {
                         headers: { Authorization: `Bearer ${token}`,},
                     }
                 );

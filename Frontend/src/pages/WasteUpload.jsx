@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from 'axios';
+import API_URL from "../api";
 import {ArrowRight,Camera,ImagePlus,Upload,X} from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/navbar";
@@ -30,10 +31,10 @@ function WasteUpload() {
         formData.append('image',file);
         formData.append("weight", weight);
         try{
-            const response=await axios.post("http://localhost:8080/api/waste/analyze",formData)
+            const response=await axios.post(`${API_URL}/api/waste/analyze`,formData)
             const waste=response.data.waste;
             const imageUrl = waste.image.url;
-            const secResponse=await axios.post("http://localhost:8080/api/waste-analysis/analyze",{wasteId:waste._id,weight})
+            const secResponse=await axios.post(`${API_URL}/api/waste-analysis/analyze`,{wasteId:waste._id,weight})
             setLoading(false);
             navigate('/result',{
                 state:{

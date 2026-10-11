@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
+import API_URL from "../api";
 export default function UserLogin({role}) {
     const navigate = useNavigate();
     const location = useLocation();
@@ -18,7 +19,7 @@ export default function UserLogin({role}) {
         setError("");
         setLoading(true);
         try {
-            const response = await axios.post(`http://localhost:8080/${role}/login`, form);
+            const response = await axios.post(`${API_URL}/${role}/login`, form);
             const { token, user } = response.data;
             if (!token) {
                 throw new Error("Login response did not contain a token.");

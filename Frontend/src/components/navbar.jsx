@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import ProfileMenu from "./profileMenu";
 import {handleRecyclerAction,} from "../utils/navigationHandler";
 import { useNavigate } from "react-router-dom";
-import HowItWorks from "../pages/HowitWorks";
 function Navbar(){
     const navigate = useNavigate();
     const token = localStorage.getItem("token");

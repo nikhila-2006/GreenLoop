@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { Recycle } from "lucide-react";
+import API_URL from "../api";
 export default function UserSignup({role}) {
     const navigate = useNavigate();
     const inputClass ="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none focus focus focus";
@@ -32,7 +32,7 @@ export default function UserSignup({role}) {
                 payload.businessName = form.businessName;
                 payload.serviceAreas = form.serviceAreas.split(",").map((area) => area.trim()).filter(Boolean);
             }
-            await axios.post(`http://localhost:8080/${role}/register`, payload);
+            await axios.post(`${API_URL}/${role}/register`, payload);
             navigate(`/${role}/login`, {
                 state: { message: "Account created! Please log in." },
             });

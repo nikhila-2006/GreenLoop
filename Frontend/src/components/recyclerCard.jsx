@@ -1,6 +1,7 @@
 import {MapPin,Recycle} from "lucide-react";
 import { useState } from "react";
 import axios from "axios";
+import API_URL from "../api";
 const RecyclerCard = ({recycler,waste,requestSent,onRequestSent}) => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
@@ -24,7 +25,7 @@ const RecyclerCard = ({recycler,waste,requestSent,onRequestSent}) => {
                 setError("Waste or recycler information is missing.");
                 return;
             }
-            const response = await axios.post("http://localhost:8080/pickups",
+            const response = await axios.post(`${API_URL}/pickups`,
                 {wasteId: waste._id, recyclerId: recycler._id, customerName: user.name, phone: user.phone, address: user.address, imageUrl: waste.image?.url,},
                 { headers: {Authorization: `Bearer ${token}`,  },}
             );

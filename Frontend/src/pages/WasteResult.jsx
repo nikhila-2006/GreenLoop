@@ -5,6 +5,7 @@ import DetailsCard from "../components/DetailsCard";
 import { useLocation } from "react-router-dom";
 import { useState,useEffect } from "react";
 import axios from "axios";
+import API_URL from "../api";
 function WasteResult() {
     const [recyclers, setRecyclers] = useState([]);
     const [requestSent, setRequestSent] = useState(false);
@@ -16,7 +17,7 @@ function WasteResult() {
     useEffect(() => {
         const fetchRecyclers = async () => {
             try {
-                const response = await axios.get("http://localhost:8080/recyclers",{
+                const response = await axios.get(`${API_URL}/recyclers`,{
                     params: {
                         pickupAddress: user?.address,
                     },
