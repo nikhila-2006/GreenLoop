@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import {handleUserAction,handleRecyclerAction,} from "../utils/navigationHandler";
 function LandingPage() {
     const navigate = useNavigate();
+    const recyclerToken = localStorage.getItem("recyclerToken");
     return (
     <div className="min-h-screen bg-white text-slate-800">
         <Navbar/>
@@ -25,12 +26,12 @@ function LandingPage() {
                 for convenient pickup.
                 </p>
                 <div className="flex flex-wrap gap-4 mt-8">
-                <button onClick={() => handleUserAction(navigate)} className="flex items-center gap-2 px-6 py-3.5 bg-green-700 text-white rounded-lg font-semibold hover:bg-green-800">
+                <button onClick={() => handleUserAction(navigate)} className="cursor-pointer flex items-center gap-2 px-6 py-3.5 bg-green-700 text-white rounded-lg font-semibold hover:bg-green-800">
                     Identify My Waste
                     <ArrowRight size={18} />
                 </button>
-                <button onClick={() => handleRecyclerAction(navigate)} className="px-6 py-3.5 border border-green-700 text-green-800 rounded-lg font-semibold hover:bg-green-50">
-                    For Recyclers
+                <button onClick={() => handleRecyclerAction(navigate)} className="cursor-pointer px-6 py-3.5 border border-green-700 text-green-800 rounded-lg font-semibold hover:bg-green-50">
+                    {recyclerToken ? "View All Pickups" : "For Recyclers"} 
                 </button>
                 </div>
             </div>

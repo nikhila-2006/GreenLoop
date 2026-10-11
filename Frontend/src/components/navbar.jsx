@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import ProfileMenu from "./profileMenu";
 import {handleRecyclerAction,} from "../utils/navigationHandler";
 import { useNavigate } from "react-router-dom";
+import HowItWorks from "../pages/HowitWorks";
 function Navbar(){
     const navigate = useNavigate();
     const token = localStorage.getItem("token");
@@ -23,13 +24,13 @@ function Navbar(){
                     <Link to="/" className="hover:text-green-600">
                         Home
                     </Link>
-                    <Link to="/" className="hover:text-green-600">
+                    <Link to="/howitworks" className="hover:text-green-600">
                         How It Works
                     </Link>
                     <button onClick={() => handleRecyclerAction(navigate)} className="hover:text-green-600">
-                        For Recyclers
+                        {recyclerToken ? "View All Pickups" : "For Recyclers"}
                     </button>
-                    <Link to="/" className="hover:text-green-600">
+                    <Link to="/about" className="hover:text-green-600">
                         About
                     </Link>
                     {(token || recyclerToken) ? <ProfileMenu role={recyclerToken ? "Recycler" : "User"}/> : <Link to="/user/login" className="px-5 py-2.5 bg-green-800 text-white rounded-lg hover:bg-green-700">

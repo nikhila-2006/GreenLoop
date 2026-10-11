@@ -7,10 +7,14 @@ import WasteUpload from './pages/WasteUpload';
 import WasteResult from './pages/WasteResult';
 import Recyler from "./pages/Recycler";
 import ProtectedRoute from './components/protectedRoute';
+import HowItWorks from './pages/HowitWorks';
+import About from './pages/About';
 function App() {
   return (
     <Routes>
         <Route path="/" element={<LandingPage/>}/>
+        <Route path="/howitworks" element={<HowItWorks/>}/>
+        <Route path="/about" element={<About/>}/>
         <Route path="/user/login" element={<LoginPage role="user"/>}/>
         <Route path="/user/signup" element={<SignupPage role="user"/>}/>
         <Route path="/recycler/login" element={<LoginPage role="recycler"/>}/>
